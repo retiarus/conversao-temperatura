@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: convtemp
+spec:
+  selector:
+    matchLabels:
+      app: convtemp
+  template:
+    metadata:
+      labels:
+        app: convtemp
+    spec:
+      containers:
+        - name: convtemp
+          image: retiarus/conversao-temperatura
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: convtemp
+spec:
+  selector:
+    app: convtemp
+  ports:
+  - port: 8090
+    targetPort: 8090
+    nodePort: 30001
+  type: NodePort
+
